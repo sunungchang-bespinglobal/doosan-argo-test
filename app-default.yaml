@@ -69,6 +69,6 @@ spec:
           effect: NoSchedule
   strategy:
     bluegreen:
-      activeServie: doosan-default-service
+      activeService: doosan-default-service
       previewService: doosan-default-service-preview
-      autoPromtionEnabled: true
+      autoPromotionEnabled: true
