@@ -31,4 +31,3 @@ spec:
           value: 1
           periodSeconds: 60
       selectPolicy: Min
-
