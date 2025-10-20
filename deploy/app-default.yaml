@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: doosan-default
-          image: docker/welcome-to-docker:latest
+          image: nginx:alpine
           ports:
             - containerPort: 80
           resources:
