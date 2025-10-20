@@ -4,8 +4,8 @@ metadata:
   name: doosan-default-service
 spec:
   selector:
+    app: doosan-default
     saas/tenant.name: doosan
-    app: doosan-default-service
     version: v1
   ports:
     - protocol: TCP
