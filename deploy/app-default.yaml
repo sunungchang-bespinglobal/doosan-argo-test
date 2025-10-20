@@ -45,19 +45,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: doosan
-          volumeMounts:
-            - name: s3-storage
-              mountPath: /file-data
-            - name: db-secret
-              mountPath: /etc/secret/db
-              readOnly: true
-      volumes:
-        - name: s3-storage
-          persistentVolumeClaim:
-            claimName: doosan-s3-storage-pvc
-        - name: db-secret
-          secret:
-            secretName: doosan-db-secret
       tolerations:
         - key: tier
           operator: Equal
