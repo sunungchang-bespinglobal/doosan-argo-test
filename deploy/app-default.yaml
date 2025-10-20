@@ -16,7 +16,7 @@ spec:
       saas/tenant.name: doosan
       version: v1
   strategy:
-    bluegreen:
+    blueGreen:  # Changed from 'bluegreen' to 'blueGreen'
       activeService: doosan-default-service
       autoPromotionEnabled: true
       previewService: doosan-default-service-preview
