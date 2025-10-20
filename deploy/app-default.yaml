@@ -35,7 +35,7 @@ spec:
         - envFrom:
             - configMapRef:
                 name: doosan
-          image: saasone/aspnetapp:latest
+          image: docker/welcome-to-docker:latest
           livenessProbe:
             failureThreshold: 3
             httpGet:
