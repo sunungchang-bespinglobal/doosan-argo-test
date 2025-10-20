@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: doosan-default
+spec:
+  rollbackWindow:
+    revision: 3
+  revisionHistoryLimit: 5
+  replicas: 3
+  selector:
+    matchLabels:
+      app: doosan-default
+      saas/tenant.name: doosan
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: doosan-default
+        saas/tenant.name: doosan
+        version: v1
+        tier: basic
+        tenancy: shared
+      annotations:
+        hash: default
+    spec:
+      containers:
+        - name: doosan-default
+          image: saasone/aspnetapp:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          envFrom:
+            - configMapRef:
+                name: doosan
+          volumeMounts:
+            - name: s3-storage
+              mountPath: /file-data
+            - name: db-secret
+              mountPath: /etc/secret/db
+              readOnly: true
+      volumes:
+        - name: s3-storage
+          persistentVolumeClaim:
+            claimName: doosan-s3-storage-pvc
+        - name: db-secret
+          secret:
+            secretName: doosan-db-secret
+      tolerations:
+        - key: tier
+          operator: Equal
+          value: basic
+          effect: NoSchedule
+        - key: tenancy
+          operator: Equal
+          value: shared
+          effect: NoSchedule
+  strategy:
+    bluegreen:
+      activeServie: doosan-default-service
+      previewService: doosan-default-service-preview
+      autoPromtionEnabled: true
