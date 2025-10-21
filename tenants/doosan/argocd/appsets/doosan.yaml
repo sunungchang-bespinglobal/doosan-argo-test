@@ -15,14 +15,14 @@ spec:
                   url: https://kubernetes.default.svc
           - list:
               elements:
-                - name: doosan-spark-app
-                  path: tenants/doosan/apps/spark-app
-                - name: doosan-express-app
-                  path: tenants/doosan/apps/express-app
-                - name: doosan-fastapi-app
-                  path: tenants/doosan/apps/fastapi-app
-                - name: doosan-aspnet-app
-                  path: tenants/doosan/apps/aspnet-app
+                - name: doosan-c2c-back
+                  path: tenants/doosan/apps/c2c-back
+                - name: doosan-c2c-entels-back
+                  path: tenants/doosan/apps/c2c-entels-back
+                - name: doosan-c2c-matter-back
+                  path: tenants/doosan/apps/c2c-back-matter
+                - name: doosan-c2c-park-back
+                  path: tenants/doosan/apps/c2c-back-park
   template:
     metadata:
       name: '{{.name}}-{{.cluster}}'
