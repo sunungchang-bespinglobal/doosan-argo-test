@@ -20,9 +20,9 @@ spec:
                 - name: doosan-c2c-entels-back
                   path: tenants/doosan/apps/c2c-entels-back
                 - name: doosan-c2c-matter-back
-                  path: tenants/doosan/apps/c2c-back-matter
+                  path: tenants/doosan/apps/c2c-back-matter-back
                 - name: doosan-c2c-park-back
-                  path: tenants/doosan/apps/c2c-back-park
+                  path: tenants/doosan/apps/c2c-back-park-back
   template:
     metadata:
       name: '{{.name}}-{{.cluster}}'
