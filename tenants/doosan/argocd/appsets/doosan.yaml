@@ -40,7 +40,7 @@ spec:
           selfHeal: true
           prune: true
         syncOptions:
-          - CreateNamespace=false
+          - CreateNamespace=true
           - PruneLast=true
       ignoreDifferences:
         - group: argoproj.io
