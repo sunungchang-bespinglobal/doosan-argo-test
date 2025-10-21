@@ -1,12 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
-meatadata:
+metadata:
   name: doosan
   namespace: argocd
 spec:
-  goTemplate: true
-  goTemplateOption: ["missingkey=error"]
-  destination:
+  description: Doosan tenant project
+  destinations:
     - namespace: doosan
       server: https://kubernetes.default.svc
   sourceRepos:
@@ -14,10 +13,8 @@ spec:
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
-  clusterResourceWhitlist:
+  clusterResourceWhitelist:
     - group: '*'
-    - kind: '*'
+      kind: '*'
   orphanedResources:
     warn: false
-  imagePullSecrets:
-    - name: doosan-image-pull-secret
