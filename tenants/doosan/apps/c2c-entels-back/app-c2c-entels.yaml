@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: doosan-c2c-entels
+spec:
+  rollbackWindow:
+    revision: 3
+  revisionHistoryLimit: 5
+  replicas: 3
+  selector:
+    matchLabels:
+      app: doosan-c2c-entels
+      saas/tenant.name: doosan
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: doosan-c2c-entels
+        saas/tenant.name: doosan
+        version: v1
+        tier: basic
+        tenancy: shared
+      annotations:
+        hash: default
+    spec:
+      containers:
+        - name: doosan-c2c-entels
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          envFrom:
+            - configMapRef:
+                name: doosan
+      tolerations:
+        - key: tier
+          operator: Equal
+          value: basic
+          effect: NoSchedule
+        - key: tenancy
+          operator: Equal
+          value: shared
+          effect: NoSchedule
+  strategy:
+    blueGreen:
+      activeService: doosan-c2c-service-entels
+      previewService: doosan-c2c-service-entels-preview
+      autoPromotionEnabled: true
