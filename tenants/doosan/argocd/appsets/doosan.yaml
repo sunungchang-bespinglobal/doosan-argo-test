@@ -29,7 +29,7 @@ spec:
     spec:
       project: doosan
       source:
-        repoURL: https://gitlab.com/tenants.git
+        repoURL: https://github.com/sunungchang-bespinglobal/doosan-argo-test.git
         targetRevision: main
         path: '{{.path}}'
       destination:

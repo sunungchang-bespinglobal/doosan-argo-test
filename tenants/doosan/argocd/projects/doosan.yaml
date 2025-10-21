@@ -9,7 +9,7 @@ spec:
     - namespace: doosan
       server: https://kubernetes.default.svc
   sourceRepos:
-    - 'https://gitlab.com/tenants.git'
+    - 'https://github.com/sunungchang-bespinglobal/doosan-argo-test.git'
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
