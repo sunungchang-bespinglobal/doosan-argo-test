@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: doosan-default
+  name: doosan-c2c
 spec:
   rollbackWindow:
     revision: 3
@@ -9,13 +9,13 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: doosan-default
+      app: doosan-c2c
       saas/tenant.name: doosan
       version: v1
   template:
     metadata:
       labels:
-        app: doosan-default
+        app: doosan-c2c
         saas/tenant.name: doosan
         version: v1
         tier: basic
@@ -24,7 +24,7 @@ spec:
         hash: default
     spec:
       containers:
-        - name: doosan-default
+        - name: doosan-c2c
           image: nginx:alpine
           ports:
             - containerPort: 80
@@ -56,6 +56,6 @@ spec:
           effect: NoSchedule
   strategy:
     blueGreen:
-      activeService: doosan-default-service
-      previewService: doosan-default-service-preview
+      activeService: doosan-c2c-service
+      previewService: doosan-c2c-service-preview
       autoPromotionEnabled: true

@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+meatadata:
+  name: doosan
+spec:
+  goTemplate: true
+  goTemplateOption: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - list:
+            elements:
+              - cluster: my-cluster-01
+                url: https://kubernetes.default.svc
+              - list:
+                  elements:
+                    - name: doosan-spark-app
+                      path: tenants/spark-app
+                    - name: doosan-express-app
+                      path: tenants/express-app
+                    - name: doosan-fastapi-app
+                      path: tenants/fastapi-app
+                    - name: doosan-aspnet-app
+                      path: tenants/aspnet-app
+  template:
+    metadata:
+      name: '{{ "{{.name}}" }}-{{ "{{.cluster}}"  }}'
+    spec:
+      project: doosan
+      source:
+        repoURL: https://gitlab.com/tenants.git
+        targetRevision: main
+        path: '{{ "{{.path}}" }}'
+      destination:
+        server: '{{ "{{.url}}"  }}'
+        namespace: doosan
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreatNamespace=false
+          - PruneLast=true
+      ignoreDifferences:
+        - group: argoproj.io
+          kind: Rollout
+          jsonPointers:
+            - /spec/replicas
+      
+                

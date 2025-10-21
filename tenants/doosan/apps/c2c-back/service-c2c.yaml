@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: doosan-default-service
+  name: doosan-c2c-service
 spec:
   selector:
-    app: doosan-default
+    app: doosan-c2c
   ports:
     - protocol: TCP
       port: 80

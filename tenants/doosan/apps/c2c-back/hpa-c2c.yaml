@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: doosan-default-hpa
+  name: doosan-c2c-hpa
 spec:
   scaleTargetRef:
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
-    name: doosan-default
+    name: doosan-c2c
   minReplicas: 2
   maxReplicas: 7
   metrics:
