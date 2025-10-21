@@ -1,50 +1,49 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
-meatadata:
+metadata:
   name: doosan
+  namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOption: ["missingkey=error"]
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
           - list:
-            elements:
-              - cluster: my-cluster-01
-                url: https://kubernetes.default.svc
-              - list:
-                  elements:
-                    - name: doosan-spark-app
-                      path: tenants/spark-app
-                    - name: doosan-express-app
-                      path: tenants/express-app
-                    - name: doosan-fastapi-app
-                      path: tenants/fastapi-app
-                    - name: doosan-aspnet-app
-                      path: tenants/aspnet-app
+              elements:
+                - cluster: my-cluster-01
+                  url: https://kubernetes.default.svc
+          - list:
+              elements:
+                - name: doosan-spark-app
+                  path: tenants/doosan/apps/spark-app
+                - name: doosan-express-app
+                  path: tenants/doosan/apps/express-app
+                - name: doosan-fastapi-app
+                  path: tenants/doosan/apps/fastapi-app
+                - name: doosan-aspnet-app
+                  path: tenants/doosan/apps/aspnet-app
   template:
     metadata:
-      name: '{{ "{{.name}}" }}-{{ "{{.cluster}}"  }}'
+      name: '{{.name}}-{{.cluster}}'
     spec:
       project: doosan
       source:
         repoURL: https://gitlab.com/tenants.git
         targetRevision: main
-        path: '{{ "{{.path}}" }}'
+        path: '{{.path}}'
       destination:
-        server: '{{ "{{.url}}"  }}'
+        server: '{{.url}}'
         namespace: doosan
       syncPolicy:
         automated:
           selfHeal: true
           prune: true
         syncOptions:
-          - CreatNamespace=false
+          - CreateNamespace=false
           - PruneLast=true
       ignoreDifferences:
         - group: argoproj.io
           kind: Rollout
           jsonPointers:
             - /spec/replicas
-      
-                
