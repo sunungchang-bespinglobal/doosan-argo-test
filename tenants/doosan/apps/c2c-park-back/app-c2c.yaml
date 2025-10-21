@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: doosan-c2c-park
-          image: nginx:alpine
+          image: httpd:alpine
           ports:
             - containerPort: 80
           resources:
@@ -42,9 +42,6 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
-          envFrom:
-            - configMapRef:
-                name: doosan
       tolerations:
         - key: tier
           operator: Equal

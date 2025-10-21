@@ -4,7 +4,7 @@ metadata:
   name: doosan-c2c-matter-service
 spec:
   selector:
-    app: doosan-c2c-matter-service
+    app: doosan-c2c-matter
   ports:
     - protocol: TCP
       port: 80

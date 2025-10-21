@@ -4,7 +4,7 @@ metadata:
   name: doosan-c2c-entels-service
 spec:
   selector:
-    app: doosan-c2c-entels-service
+    app: doosan-c2c-entels
   ports:
     - protocol: TCP
       port: 80

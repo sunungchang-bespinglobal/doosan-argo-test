@@ -4,7 +4,7 @@ metadata:
   name: doosan-c2c-park-service
 spec:
   selector:
-    app: doosan-c2c-park-service
+    app: doosan-c2c-park
   ports:
     - protocol: TCP
       port: 80
